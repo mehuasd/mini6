@@ -1,0 +1,427 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#070b1a">
+    <title>Sign Up | Renewal Radar</title>
+
+    <style>
+        :root {
+            --bg: #070b1a;
+            --panel: rgba(17, 25, 52, .88);
+            --text: #f4f7ff;
+            --muted: #a8b4d5;
+            --cyan: #46d9f4;
+            --purple: #9b7bff;
+            --line: rgba(153, 177, 255, .18);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--text);
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+                BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(ellipse at 15% 15%, rgba(55, 95, 210, .24), transparent 35%),
+                radial-gradient(ellipse at 85% 20%, rgba(135, 74, 238, .19), transparent 32%),
+                var(--bg);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .auth-top {
+            width: min(1160px, calc(100% - 40px));
+            margin: auto;
+            padding: 24px 0;
+        }
+
+        .brand {
+            font-size: 1.3rem;
+            font-weight: 850;
+            letter-spacing: -.6px;
+        }
+
+        .brand span {
+            color: var(--cyan);
+        }
+
+        .auth-wrap {
+            min-height: calc(100vh - 88px);
+            display: grid;
+            place-items: center;
+            padding: 28px 20px 60px;
+        }
+
+        .auth-card {
+            width: min(460px, 100%);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            padding: 34px;
+            background: var(--panel);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, .25);
+            backdrop-filter: blur(12px);
+        }
+
+        .eyebrow {
+            display: inline-block;
+            border: 1px solid rgba(70, 217, 244, .28);
+            color: var(--cyan);
+            background: rgba(70, 217, 244, .07);
+            border-radius: 999px;
+            padding: 8px 12px;
+            font-size: .82rem;
+            font-weight: 750;
+            letter-spacing: .4px;
+        }
+
+        h1 {
+            font-size: 2.1rem;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            margin: 16px 0 12px;
+        }
+
+        .gradient {
+            background: linear-gradient(100deg, var(--cyan), #a7b6ff 58%, #c39cff);
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+
+        .auth-sub {
+            color: var(--muted);
+            line-height: 1.65;
+            margin: 0 0 24px;
+        }
+
+        .field {
+            display: block;
+            margin: 17px 0;
+        }
+
+        .field span {
+            display: block;
+            font-size: .9rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 14px 15px;
+            border-radius: 12px;
+            outline: none;
+            border: 1px solid var(--line);
+            color: var(--text);
+            background: rgba(4, 8, 20, .65);
+            font-size: 1rem;
+            transition: .2s ease;
+        }
+
+        .field input::placeholder {
+            color: #7280a3;
+        }
+
+        .field input:focus {
+            border-color: var(--cyan);
+            box-shadow: 0 0 0 3px rgba(70, 217, 244, .1);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 13px 18px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            color: var(--text);
+            font-weight: 700;
+            cursor: pointer;
+            font-size: .95rem;
+            background: rgba(255, 255, 255, .035);
+            transition: .2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            border-color: rgba(70, 217, 244, .55);
+        }
+
+        .btn.primary {
+            color: #07101f;
+            border: 0;
+            background: linear-gradient(110deg, var(--cyan), #8db9ff 55%, #b59aff);
+            box-shadow: 0 10px 30px rgba(70, 217, 244, .12);
+        }
+
+        .btn.primary:hover {
+            box-shadow: 0 12px 32px rgba(70, 217, 244, .22);
+        }
+
+        .full {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .auth-switch {
+            color: var(--muted);
+            text-align: center;
+            margin: 22px 0 0;
+            font-size: .94rem;
+        }
+
+        .auth-switch a {
+            color: var(--cyan);
+            font-weight: 750;
+        }
+
+        .auth-switch a:hover {
+            text-decoration: underline;
+        }
+
+        .flash {
+            display: none;
+            padding: 12px 14px;
+            border-radius: 12px;
+            margin: 12px 0;
+            font-size: .9rem;
+            overflow-wrap: anywhere;
+        }
+
+        .flash.error {
+            display: block;
+            color: #ffc1cc;
+            background: rgba(255, 80, 110, .1);
+            border: 1px solid rgba(255, 80, 110, .2);
+        }
+
+        .flash.success {
+            display: block;
+            color: #b7ffe2;
+            background: rgba(40, 220, 160, .1);
+            border: 1px solid rgba(40, 220, 160, .2);
+        }
+
+        @media (max-width: 480px) {
+            .auth-top {
+                width: calc(100% - 28px);
+            }
+
+            .auth-card {
+                padding: 25px 20px;
+            }
+
+            h1 {
+                font-size: 1.85rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="auth-top">
+        <a class="brand" href="landing.html">
+            Renewal<span>Radar</span>
+        </a>
+    </header>
+
+    <main class="auth-wrap">
+        <section class="auth-card">
+            <span class="eyebrow">LET’S GET YOU SET UP</span>
+
+            <h1>Create your <span class="gradient">account.</span></h1>
+
+            <p class="auth-sub">
+                Join Renewal Radar and start keeping your renewal
+                information organized.
+            </p>
+
+            <div id="message" class="flash" role="alert" aria-live="polite"></div>
+
+            <form id="signupForm">
+                <label class="field">
+                    <span>Full name</span>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Your name"
+                        autocomplete="name"
+                        maxlength="100"
+                        required
+                    >
+                </label>
+
+                <label class="field">
+                    <span>Email address</span>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                        maxlength="254"
+                        required
+                    >
+                </label>
+
+                <label class="field">
+                    <span>Password</span>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="At least 8 characters"
+                        autocomplete="new-password"
+                        minlength="8"
+                        required
+                    >
+                </label>
+
+                <label class="field">
+                    <span>Confirm password</span>
+                    <input
+                        type="password"
+                        id="confirm_password"
+                        name="confirm_password"
+                        placeholder="Enter password again"
+                        autocomplete="new-password"
+                        minlength="8"
+                        required
+                    >
+                </label>
+
+                <button class="btn primary full" type="submit">
+                    Create Account →
+                </button>
+            </form>
+
+            <p class="auth-switch">
+                Already have an account?
+                <a href="login.html">Log in</a>
+            </p>
+
+            <p class="auth-switch">
+                <a href="landing.html">← Back to home</a>
+            </p>
+        </section>
+    </main>
+
+    <script>
+        const signupForm = document.getElementById("signupForm");
+        const message = document.getElementById("message");
+
+        function showMessage(text, type) {
+            message.textContent = text;
+            message.className = "flash " + type;
+        }
+
+        signupForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email")
+                .value.trim().toLowerCase();
+
+            const password = document.getElementById("password").value;
+            const confirmPassword =
+                document.getElementById("confirm_password").value;
+
+            if (!name) {
+                showMessage("Please enter your full name.", "error");
+                return;
+            }
+
+            if (password.length < 8) {
+                showMessage(
+                    "Your password must contain at least 8 characters.",
+                    "error"
+                );
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showMessage("The passwords do not match.", "error");
+                return;
+            }
+
+            let users = [];
+
+            try {
+                users = JSON.parse(localStorage.getItem("rr_users")) || [];
+
+                if (!Array.isArray(users)) {
+                    users = [];
+                }
+            } catch (error) {
+                showMessage(
+                    "Unable to access saved accounts in this browser.",
+                    "error"
+                );
+                return;
+            }
+
+            const existingUser = users.find(function (user) {
+                return user.email.toLowerCase() === email;
+            });
+
+            if (existingUser) {
+                showMessage(
+                    "An account with this email already exists. Please log in.",
+                    "error"
+                );
+                return;
+            }
+
+            const newUser = {
+                name: name,
+                email: email,
+                password: password,
+                createdAt: new Date().toISOString()
+            };
+
+            users.push(newUser);
+
+            try {
+                localStorage.setItem("rr_users", JSON.stringify(users));
+
+                // Sign the new demo user in immediately.
+                localStorage.setItem("rr_current_user", JSON.stringify({
+                    name: newUser.name,
+                    email: newUser.email
+                }));
+
+                // Each account starts with its own empty renewal list.
+                localStorage.setItem(
+                    "rr_renewals_" + email,
+                    JSON.stringify([])
+                );
+
+                showMessage(
+                    "Account created successfully! Opening your dashboard...",
+                    "success"
+                );
+
+                window.location.href = "dashboard.html";
+            } catch (error) {
+                showMessage(
+                    "Unable to save your account. Browser storage may be full or disabled.",
+                    "error"
+                );
+            }
+        });
+    </script>
+<script src="rr-app.js"></script>
+</body>
+</html>
